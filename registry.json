@@ -231,6 +231,22 @@
       "lastUpdated": "2026-02-07T19:13:14+01:00"
     },
     {
+      "id": "hot-corners",
+      "name": "Hot Corners",
+      "version": "0.0.1",
+      "official": false,
+      "author": "sapjax",
+      "description": "A macOS-style hot corners plugin for Noctalia Shell.",
+      "repository": "https://github.com/noctalia-dev/noctalia-plugins",
+      "minNoctaliaVersion": "3.6.0",
+      "license": "MIT",
+      "tags": [
+        "Desktop",
+        "Productivity"
+      ],
+      "lastUpdated": "2026-03-02T19:41:26+08:00"
+    },
+    {
       "id": "hyprland-steam-overlay",
       "name": "Steam Overlay (Hyprland)",
       "version": "2.1.1",
