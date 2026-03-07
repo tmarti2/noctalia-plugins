@@ -53,7 +53,7 @@
     {
       "id": "battery-threshold",
       "name": "Battery Threshold Control",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "official": false,
       "author": "Wilfred Mallawa",
       "description": "Set the battery threshold for laptop batteries to extend battery lifespan",
@@ -65,7 +65,7 @@
         "Panel",
         "System"
       ],
-      "lastUpdated": "2026-01-31T13:58:49+07:00"
+      "lastUpdated": "2026-03-06T19:49:25+01:00"
     },
     {
       "id": "calibre-provider",
@@ -168,18 +168,18 @@
     {
       "id": "fancy-audiovisualizer",
       "name": "Fancy Audiovisualizer",
-      "version": "1.0.8",
+      "version": "1.1.0",
       "official": true,
       "author": "Noctalia Team",
       "description": "Lemmy's fancy circular audio visualizer.",
       "repository": "https://github.com/noctalia-dev/noctalia-plugins",
-      "minNoctaliaVersion": "3.7.2",
+      "minNoctaliaVersion": "4.6.5",
       "license": "MIT",
       "tags": [
         "Desktop",
         "Audio"
       ],
-      "lastUpdated": "2026-02-17T14:33:04-05:00"
+      "lastUpdated": "2026-03-06T22:36:28-05:00"
     },
     {
       "id": "file-search",
@@ -718,7 +718,7 @@
     {
       "id": "screen-recorder",
       "name": "Screen Recorder",
-      "version": "1.1.7",
+      "version": "1.2.0",
       "official": true,
       "author": "Noctalia Team",
       "description": "Hardware-accelerated screen recording using gpu-screen-recorder with customizable video and audio settings",
@@ -729,7 +729,7 @@
         "Bar",
         "Utility"
       ],
-      "lastUpdated": "2026-02-10T01:17:08+03:00"
+      "lastUpdated": "2026-03-07T11:53:21+01:00"
     },
     {
       "id": "screen-shot-and-record",
