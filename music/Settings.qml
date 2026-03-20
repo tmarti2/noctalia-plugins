@@ -167,12 +167,12 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: pluginApi?.tr("settings.provider.label") || "Global provider"
-    description: pluginApi?.tr("settings.provider.desc") || ""
+    label: pluginApi?.tr("settings.provider.label")
+    description: pluginApi?.tr("settings.provider.desc")
     model: [
-      {"key": "youtube", "name": pluginApi?.tr("providers.youtube") || "YouTube"},
-      {"key": "soundcloud", "name": pluginApi?.tr("providers.soundcloud") || "SoundCloud"},
-      {"key": "local", "name": pluginApi?.tr("providers.local") || "Local"}
+      {"key": "youtube", "name": pluginApi?.tr("providers.youtube")},
+      {"key": "soundcloud", "name": pluginApi?.tr("providers.soundcloud")},
+      {"key": "local", "name": pluginApi?.tr("providers.local")}
     ]
     currentKey: root.editCurrentProvider
     defaultValue: "youtube"
@@ -184,13 +184,13 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: pluginApi?.tr("settings.sort.label") || "Default sort"
-    description: pluginApi?.tr("settings.sort.desc") || ""
+    label: pluginApi?.tr("settings.sort.label")
+    description: pluginApi?.tr("settings.sort.desc")
     model: [
-      {"key": "date", "name": pluginApi?.tr("sort.savedDate") || "Saved date"},
-      {"key": "title", "name": pluginApi?.tr("sort.title") || "Title"},
-      {"key": "duration", "name": pluginApi?.tr("sort.duration") || "Duration"},
-      {"key": "rating", "name": pluginApi?.tr("sort.rating") || "Rating"}
+      {"key": "date", "name": pluginApi?.tr("sort.savedDate")},
+      {"key": "title", "name": pluginApi?.tr("sort.title")},
+      {"key": "duration", "name": pluginApi?.tr("sort.duration")},
+      {"key": "rating", "name": pluginApi?.tr("sort.rating")}
     ]
     currentKey: root.editDefaultSort
     defaultValue: "date"
@@ -202,12 +202,12 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: pluginApi?.tr("settings.ytClient.label") || "YouTube player client"
-    description: pluginApi?.tr("settings.ytClient.desc") || ""
+    label: pluginApi?.tr("settings.ytClient.label")
+    description: pluginApi?.tr("settings.ytClient.desc")
     model: [
-      {"key": "android", "name": pluginApi?.tr("settings.ytClient.android") || "Android"},
-      {"key": "web", "name": pluginApi?.tr("settings.ytClient.web") || "Web"},
-      {"key": "default", "name": pluginApi?.tr("settings.ytClient.default") || "Default (yt-dlp decides)"}
+      {"key": "android", "name": pluginApi?.tr("settings.ytClient.android")},
+      {"key": "web", "name": pluginApi?.tr("settings.ytClient.web")},
+      {"key": "default", "name": pluginApi?.tr("settings.ytClient.default")}
     ]
     currentKey: root.editYtPlayerClient
     defaultValue: "android"
@@ -223,7 +223,7 @@ ColumnLayout {
 
   NText {
     Layout.fillWidth: true
-    text: pluginApi?.tr("settings.downloads.title") || "Downloads"
+    text: pluginApi?.tr("settings.downloads.title")
     pointSize: Style.fontSizeM
     font.weight: Style.fontWeightBold
     color: Color.mOnSurface
@@ -231,7 +231,7 @@ ColumnLayout {
 
   NText {
     Layout.fillWidth: true
-    text: pluginApi?.tr("settings.downloads.currentFolder", {"path": root.editDownloadDirectory}) || ("Current folder: " + root.editDownloadDirectory)
+    text: pluginApi?.tr("settings.downloads.currentFolder", {"path": root.editDownloadDirectory})
     wrapMode: Text.Wrap
     pointSize: Style.fontSizeS
     color: Color.mOnSurfaceVariant
@@ -242,12 +242,12 @@ ColumnLayout {
     spacing: Style.marginS
 
     NButton {
-      text: pluginApi?.tr("settings.downloads.chooseFolder") || "Choose MP3 folder"
+      text: pluginApi?.tr("settings.downloads.chooseFolder")
       onClicked: downloadFolderPicker.open()
     }
 
     NButton {
-      text: pluginApi?.tr("settings.downloads.applyFolder") || "Apply folder"
+      text: pluginApi?.tr("settings.downloads.applyFolder")
       enabled: String(root.editDownloadDirectory || "").trim().length > 0
       onClicked: root.applyDownloadDirectory()
     }
@@ -258,8 +258,8 @@ ColumnLayout {
     spacing: Style.marginS
 
     NLabel {
-      label: pluginApi?.tr("settings.cache.label") || "Max MP3 cache size"
-      description: pluginApi?.tr("settings.cache.desc") || ""
+      label: pluginApi?.tr("settings.cache.label")
+      description: pluginApi?.tr("settings.cache.desc")
     }
 
     NSpinBox {
@@ -271,14 +271,14 @@ ColumnLayout {
     }
 
     NButton {
-      text: pluginApi?.tr("settings.cache.apply") || "Apply cache limit"
+      text: pluginApi?.tr("settings.cache.apply")
       onClicked: root.applyCacheLimit()
     }
   }
 
   NToggle {
-    label: pluginApi?.tr("settings.autoSave.label") || "Save remote tracks as mp3 after playback starts"
-    description: pluginApi?.tr("settings.autoSave.desc") || ""
+    label: pluginApi?.tr("settings.autoSave.label")
+    description: pluginApi?.tr("settings.autoSave.desc")
     checked: root.editAutoSaveMp3AfterPlayback
     onToggled: {
       root.editAutoSaveMp3AfterPlayback = checked;
@@ -293,15 +293,15 @@ ColumnLayout {
 
   NText {
     Layout.fillWidth: true
-    text: pluginApi?.tr("settings.home.title") || "Home"
+    text: pluginApi?.tr("settings.home.title")
     pointSize: Style.fontSizeM
     font.weight: Style.fontWeightBold
     color: Color.mOnSurface
   }
 
   NToggle {
-    label: pluginApi?.tr("settings.home.recent.label") || "Show Recently Played"
-    description: pluginApi?.tr("settings.home.recent.desc") || ""
+    label: pluginApi?.tr("settings.home.recent.label")
+    description: pluginApi?.tr("settings.home.recent.desc")
     checked: root.editShowHomeRecent
     onToggled: {
       root.editShowHomeRecent = checked;
@@ -311,8 +311,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: pluginApi?.tr("settings.home.top.label") || "Show Most Played"
-    description: pluginApi?.tr("settings.home.top.desc") || ""
+    label: pluginApi?.tr("settings.home.top.label")
+    description: pluginApi?.tr("settings.home.top.desc")
     checked: root.editShowHomeTop
     onToggled: {
       root.editShowHomeTop = checked;
@@ -322,8 +322,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: pluginApi?.tr("settings.home.tags.label") || "Show Tags"
-    description: pluginApi?.tr("settings.home.tags.desc") || ""
+    label: pluginApi?.tr("settings.home.tags.label")
+    description: pluginApi?.tr("settings.home.tags.desc")
     checked: root.editShowHomeTags
     onToggled: {
       root.editShowHomeTags = checked;
@@ -333,8 +333,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: pluginApi?.tr("settings.home.artists.label") || "Show Artists"
-    description: pluginApi?.tr("settings.home.artists.desc") || ""
+    label: pluginApi?.tr("settings.home.artists.label")
+    description: pluginApi?.tr("settings.home.artists.desc")
     checked: root.editShowHomeArtists
     onToggled: {
       root.editShowHomeArtists = checked;
@@ -344,8 +344,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: pluginApi?.tr("settings.home.playlists.label") || "Show Playlists"
-    description: pluginApi?.tr("settings.home.playlists.desc") || ""
+    label: pluginApi?.tr("settings.home.playlists.label")
+    description: pluginApi?.tr("settings.home.playlists.desc")
     checked: root.editShowHomePlaylists
     onToggled: {
       root.editShowHomePlaylists = checked;
@@ -360,7 +360,7 @@ ColumnLayout {
 
   NText {
     Layout.fillWidth: true
-    text: pluginApi?.tr("settings.preview.title") || "Preview"
+    text: pluginApi?.tr("settings.preview.title")
     pointSize: Style.fontSizeM
     font.weight: Style.fontWeightBold
     color: Color.mOnSurface
@@ -368,12 +368,12 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: pluginApi?.tr("settings.preview.metadata.label") || "Rich Preview Metadata"
-    description: pluginApi?.tr("settings.preview.metadata.desc") || ""
+    label: pluginApi?.tr("settings.preview.metadata.label")
+    description: pluginApi?.tr("settings.preview.metadata.desc")
     model: [
-      {"key": "always", "name": pluginApi?.tr("settings.preview.metadata.all") || "All previews"},
-      {"key": "playing", "name": pluginApi?.tr("settings.preview.metadata.playing") || "Only playing track"},
-      {"key": "never", "name": pluginApi?.tr("settings.preview.metadata.disabled") || "Disabled"}
+      {"key": "always", "name": pluginApi?.tr("settings.preview.metadata.all")},
+      {"key": "playing", "name": pluginApi?.tr("settings.preview.metadata.playing")},
+      {"key": "never", "name": pluginApi?.tr("settings.preview.metadata.disabled")}
     ]
     currentKey: root.editPreviewMetadataMode
     defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.previewMetadataMode ?? "always"
@@ -387,12 +387,12 @@ ColumnLayout {
     Layout.fillWidth: true
     text: {
       if (root.editPreviewMetadataMode === "never") {
-        return pluginApi?.tr("settings.preview.metadata.neverHint") || "Preview panels will stay lightweight and use only the metadata already present in the launcher results.";
+        return pluginApi?.tr("settings.preview.metadata.neverHint");
       }
       if (root.editPreviewMetadataMode === "playing") {
-        return pluginApi?.tr("settings.preview.metadata.playingHint") || "Only the currently playing item will fetch richer preview data. Saved and search results stay fast.";
+        return pluginApi?.tr("settings.preview.metadata.playingHint");
       }
-      return pluginApi?.tr("settings.preview.metadata.alwaysHint") || "Every preview can fetch richer metadata, including thumbnails and long-form details.";
+      return pluginApi?.tr("settings.preview.metadata.alwaysHint");
     }
     wrapMode: Text.Wrap
     pointSize: Style.fontSizeS
@@ -401,12 +401,12 @@ ColumnLayout {
 
   NComboBox {
     Layout.fillWidth: true
-    label: pluginApi?.tr("settings.preview.thumbnail.label") || "Thumbnail size"
-    description: pluginApi?.tr("settings.preview.thumbnail.desc") || ""
+    label: pluginApi?.tr("settings.preview.thumbnail.label")
+    description: pluginApi?.tr("settings.preview.thumbnail.desc")
     model: [
-      {"key": "small", "name": pluginApi?.tr("settings.preview.thumbnail.small") || "Small"},
-      {"key": "comfortable", "name": pluginApi?.tr("settings.preview.thumbnail.comfortable") || "Comfortable"},
-      {"key": "large", "name": pluginApi?.tr("settings.preview.thumbnail.large") || "Large"}
+      {"key": "small", "name": pluginApi?.tr("settings.preview.thumbnail.small")},
+      {"key": "comfortable", "name": pluginApi?.tr("settings.preview.thumbnail.comfortable")},
+      {"key": "large", "name": pluginApi?.tr("settings.preview.thumbnail.large")}
     ]
     currentKey: root.editPreviewThumbnailSize
     defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.previewThumbnailSize ?? "comfortable"
@@ -417,8 +417,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: pluginApi?.tr("settings.preview.chips.label") || "Show preview chips"
-    description: pluginApi?.tr("settings.preview.chips.desc") || ""
+    label: pluginApi?.tr("settings.preview.chips.label")
+    description: pluginApi?.tr("settings.preview.chips.desc")
     checked: root.editShowPreviewChips
     onToggled: {
       root.editShowPreviewChips = checked;
@@ -433,15 +433,15 @@ ColumnLayout {
 
   NText {
     Layout.fillWidth: true
-    text: pluginApi?.tr("settings.metadata.title") || "Visible Metadata"
+    text: pluginApi?.tr("settings.metadata.title")
     pointSize: Style.fontSizeM
     font.weight: Style.fontWeightBold
     color: Color.mOnSurface
   }
 
   NToggle {
-    label: pluginApi?.tr("settings.metadata.uploader.label") || "Show uploader"
-    description: pluginApi?.tr("settings.metadata.uploader.desc") || ""
+    label: pluginApi?.tr("settings.metadata.uploader.label")
+    description: pluginApi?.tr("settings.metadata.uploader.desc")
     checked: root.editShowUploaderMetadata
     onToggled: {
       root.editShowUploaderMetadata = checked;
@@ -451,8 +451,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: pluginApi?.tr("settings.metadata.album.label") || "Show album"
-    description: pluginApi?.tr("settings.metadata.album.desc") || ""
+    label: pluginApi?.tr("settings.metadata.album.label")
+    description: pluginApi?.tr("settings.metadata.album.desc")
     checked: root.editShowAlbumMetadata
     onToggled: {
       root.editShowAlbumMetadata = checked;
@@ -462,8 +462,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: pluginApi?.tr("settings.metadata.duration.label") || "Show duration"
-    description: pluginApi?.tr("settings.metadata.duration.desc") || ""
+    label: pluginApi?.tr("settings.metadata.duration.label")
+    description: pluginApi?.tr("settings.metadata.duration.desc")
     checked: root.editShowDurationMetadata
     onToggled: {
       root.editShowDurationMetadata = checked;
@@ -473,8 +473,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: pluginApi?.tr("settings.metadata.rating.label") || "Show ratings"
-    description: pluginApi?.tr("settings.metadata.rating.desc") || ""
+    label: pluginApi?.tr("settings.metadata.rating.label")
+    description: pluginApi?.tr("settings.metadata.rating.desc")
     checked: root.editShowRatingMetadata
     onToggled: {
       root.editShowRatingMetadata = checked;
@@ -484,8 +484,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: pluginApi?.tr("settings.metadata.tags.label") || "Show tags"
-    description: pluginApi?.tr("settings.metadata.tags.desc") || ""
+    label: pluginApi?.tr("settings.metadata.tags.label")
+    description: pluginApi?.tr("settings.metadata.tags.desc")
     checked: root.editShowTagMetadata
     onToggled: {
       root.editShowTagMetadata = checked;
@@ -495,8 +495,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: pluginApi?.tr("settings.metadata.playStats.label") || "Show play stats"
-    description: pluginApi?.tr("settings.metadata.playStats.desc") || ""
+    label: pluginApi?.tr("settings.metadata.playStats.label")
+    description: pluginApi?.tr("settings.metadata.playStats.desc")
     checked: root.editShowPlayStatsMetadata
     onToggled: {
       root.editShowPlayStatsMetadata = checked;
@@ -506,8 +506,8 @@ ColumnLayout {
   }
 
   NToggle {
-    label: pluginApi?.tr("settings.metadata.status.label") || "Show status"
-    description: pluginApi?.tr("settings.metadata.status.desc") || ""
+    label: pluginApi?.tr("settings.metadata.status.label")
+    description: pluginApi?.tr("settings.metadata.status.desc")
     checked: root.editShowStatusMetadata
     onToggled: {
       root.editShowStatusMetadata = checked;
@@ -519,7 +519,7 @@ ColumnLayout {
   NFilePicker {
     id: downloadFolderPicker
     selectionMode: "folders"
-    title: pluginApi?.tr("settings.downloads.folderPickerTitle") || "Choose MP3 download folder"
+    title: pluginApi?.tr("settings.downloads.folderPickerTitle")
     initialPath: root.editDownloadDirectory || (Quickshell.env("HOME") + "/Music")
     onAccepted: paths => {
       if (paths.length > 0) {
