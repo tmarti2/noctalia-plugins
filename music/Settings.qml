@@ -8,111 +8,75 @@ ColumnLayout {
   id: root
 
   property var pluginApi: null
-  property string editCurrentProvider: "youtube"
-  property string editDefaultSort: "date"
-  property string editYtPlayerClient: "android"
-  property string editDownloadDirectory: Quickshell.env("HOME") + "/Music/Noctalia"
-  property int editDownloadCacheMaxMb: 0
-  property string editPreviewMetadataMode: "always"
-  property bool editShowUploaderMetadata: true
-  property bool editShowAlbumMetadata: true
-  property bool editShowDurationMetadata: true
-  property bool editShowRatingMetadata: true
-  property bool editShowTagMetadata: true
-  property bool editShowPlayStatsMetadata: true
-  property bool editShowStatusMetadata: true
-  property bool editShowPreviewChips: true
-  property string editPreviewThumbnailSize: "comfortable"
-  property bool editShowHomeRecent: true
-  property bool editShowHomeTop: true
-  property bool editShowHomeTags: true
-  property bool editShowHomeArtists: true
-  property bool editShowHomePlaylists: true
-  property bool editAutoSaveMp3AfterPlayback: false
+  readonly property var mainInstance: pluginApi?.mainInstance ?? null
+  readonly property var defaults: pluginApi?.manifest?.metadata?.defaultSettings ?? ({})
+  readonly property string defaultDownloadDirectory: Quickshell.env("HOME") + "/Music/Noctalia"
+  readonly property string currentProvider: root.mainInstance?.currentProvider ?? "youtube"
+  readonly property string currentSortBy: root.mainInstance?.currentSortBy ?? "date"
+  readonly property string currentYtPlayerClient: root.mainInstance?.ytPlayerClient ?? "android"
+  readonly property string currentDownloadDirectory: root.mainInstance?.downloadDirectory ?? root.defaultDownloadDirectory
+  readonly property int currentDownloadCacheMaxMb: Number(root.mainInstance?.downloadCacheMaxMb ?? 0)
+  readonly property string previewMetadataMode: pluginApi?.pluginSettings?.previewMetadataMode
+      ?? root.defaults.previewMetadataMode
+      ?? "always"
+  readonly property bool showUploaderMetadata: pluginApi?.pluginSettings?.showUploaderMetadata
+      ?? root.defaults.showUploaderMetadata
+      ?? true
+  readonly property bool showAlbumMetadata: pluginApi?.pluginSettings?.showAlbumMetadata
+      ?? root.defaults.showAlbumMetadata
+      ?? true
+  readonly property bool showDurationMetadata: pluginApi?.pluginSettings?.showDurationMetadata
+      ?? root.defaults.showDurationMetadata
+      ?? true
+  readonly property bool showRatingMetadata: pluginApi?.pluginSettings?.showRatingMetadata
+      ?? root.defaults.showRatingMetadata
+      ?? true
+  readonly property bool showTagMetadata: pluginApi?.pluginSettings?.showTagMetadata
+      ?? root.defaults.showTagMetadata
+      ?? true
+  readonly property bool showPlayStatsMetadata: pluginApi?.pluginSettings?.showPlayStatsMetadata
+      ?? root.defaults.showPlayStatsMetadata
+      ?? true
+  readonly property bool showStatusMetadata: pluginApi?.pluginSettings?.showStatusMetadata
+      ?? root.defaults.showStatusMetadata
+      ?? true
+  readonly property bool showPreviewChips: pluginApi?.pluginSettings?.showPreviewChips
+      ?? root.defaults.showPreviewChips
+      ?? true
+  readonly property string previewThumbnailSize: pluginApi?.pluginSettings?.previewThumbnailSize
+      ?? root.defaults.previewThumbnailSize
+      ?? "comfortable"
+  readonly property bool showHomeRecent: pluginApi?.pluginSettings?.showHomeRecent
+      ?? root.defaults.showHomeRecent
+      ?? true
+  readonly property bool showHomeTop: pluginApi?.pluginSettings?.showHomeTop
+      ?? root.defaults.showHomeTop
+      ?? true
+  readonly property bool showHomeTags: pluginApi?.pluginSettings?.showHomeTags
+      ?? root.defaults.showHomeTags
+      ?? true
+  readonly property bool showHomeArtists: pluginApi?.pluginSettings?.showHomeArtists
+      ?? root.defaults.showHomeArtists
+      ?? true
+  readonly property bool showHomePlaylists: pluginApi?.pluginSettings?.showHomePlaylists
+      ?? root.defaults.showHomePlaylists
+      ?? true
+  readonly property bool autoSaveMp3AfterPlayback: pluginApi?.pluginSettings?.autoSaveMp3AfterPlayback
+      ?? root.defaults.autoSaveMp3AfterPlayback
+      ?? false
+  property string editDownloadDirectory: root.currentDownloadDirectory
+  property int editDownloadCacheMaxMb: root.currentDownloadCacheMaxMb
 
   spacing: Style.marginL
 
-  function loadSettings() {
-    editCurrentProvider = pluginApi?.mainInstance?.currentProvider || "youtube";
-    editDefaultSort = pluginApi?.mainInstance?.currentSortBy || "date";
-    editYtPlayerClient = pluginApi?.mainInstance?.ytPlayerClient || "android";
-    editDownloadDirectory = pluginApi?.mainInstance?.downloadDirectory || (Quickshell.env("HOME") + "/Music/Noctalia");
-    editDownloadCacheMaxMb = Number(pluginApi?.mainInstance?.downloadCacheMaxMb || 0);
-    editPreviewMetadataMode = pluginApi?.pluginSettings?.previewMetadataMode
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.previewMetadataMode
-        ?? "always";
-    editShowUploaderMetadata = pluginApi?.pluginSettings?.showUploaderMetadata
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showUploaderMetadata
-        ?? true;
-    editShowAlbumMetadata = pluginApi?.pluginSettings?.showAlbumMetadata
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showAlbumMetadata
-        ?? true;
-    editShowDurationMetadata = pluginApi?.pluginSettings?.showDurationMetadata
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showDurationMetadata
-        ?? true;
-    editShowRatingMetadata = pluginApi?.pluginSettings?.showRatingMetadata
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showRatingMetadata
-        ?? true;
-    editShowTagMetadata = pluginApi?.pluginSettings?.showTagMetadata
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showTagMetadata
-        ?? true;
-    editShowPlayStatsMetadata = pluginApi?.pluginSettings?.showPlayStatsMetadata
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showPlayStatsMetadata
-        ?? true;
-    editShowStatusMetadata = pluginApi?.pluginSettings?.showStatusMetadata
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showStatusMetadata
-        ?? true;
-    editShowPreviewChips = pluginApi?.pluginSettings?.showPreviewChips
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showPreviewChips
-        ?? true;
-    editPreviewThumbnailSize = pluginApi?.pluginSettings?.previewThumbnailSize
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.previewThumbnailSize
-        ?? "comfortable";
-    editShowHomeRecent = pluginApi?.pluginSettings?.showHomeRecent
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showHomeRecent
-        ?? true;
-    editShowHomeTop = pluginApi?.pluginSettings?.showHomeTop
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showHomeTop
-        ?? true;
-    editShowHomeTags = pluginApi?.pluginSettings?.showHomeTags
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showHomeTags
-        ?? true;
-    editShowHomeArtists = pluginApi?.pluginSettings?.showHomeArtists
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showHomeArtists
-        ?? true;
-    editShowHomePlaylists = pluginApi?.pluginSettings?.showHomePlaylists
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showHomePlaylists
-        ?? true;
-    editAutoSaveMp3AfterPlayback = pluginApi?.pluginSettings?.autoSaveMp3AfterPlayback
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.autoSaveMp3AfterPlayback
-        ?? false;
-  }
-
-  function saveSettings() {
+  function saveSetting(key, value) {
     if (!pluginApi) {
       Logger.e("MusicSearch", "Cannot save settings: pluginApi is null");
       return;
     }
 
-    pluginApi.pluginSettings.previewMetadataMode = editPreviewMetadataMode;
-    pluginApi.pluginSettings.showUploaderMetadata = editShowUploaderMetadata;
-    pluginApi.pluginSettings.showAlbumMetadata = editShowAlbumMetadata;
-    pluginApi.pluginSettings.showDurationMetadata = editShowDurationMetadata;
-    pluginApi.pluginSettings.showRatingMetadata = editShowRatingMetadata;
-    pluginApi.pluginSettings.showTagMetadata = editShowTagMetadata;
-    pluginApi.pluginSettings.showPlayStatsMetadata = editShowPlayStatsMetadata;
-    pluginApi.pluginSettings.showStatusMetadata = editShowStatusMetadata;
-    pluginApi.pluginSettings.showPreviewChips = editShowPreviewChips;
-    pluginApi.pluginSettings.previewThumbnailSize = editPreviewThumbnailSize;
-    pluginApi.pluginSettings.showHomeRecent = editShowHomeRecent;
-    pluginApi.pluginSettings.showHomeTop = editShowHomeTop;
-    pluginApi.pluginSettings.showHomeTags = editShowHomeTags;
-    pluginApi.pluginSettings.showHomeArtists = editShowHomeArtists;
-    pluginApi.pluginSettings.showHomePlaylists = editShowHomePlaylists;
-    pluginApi.pluginSettings.autoSaveMp3AfterPlayback = editAutoSaveMp3AfterPlayback;
+    pluginApi.pluginSettings[key] = value;
     pluginApi.saveSettings();
-    pluginApi.mainInstance?.refreshPreviewMetadataMode();
-    pluginApi.mainInstance?.refreshDisplaySettings();
   }
 
   function applyDownloadDirectory() {
@@ -129,41 +93,8 @@ ColumnLayout {
     pluginApi?.mainInstance?.setDownloadCacheMaxMb(target);
   }
 
-  onPluginApiChanged: {
-    if (pluginApi) {
-      loadSettings();
-    }
-  }
-
-  Component.onCompleted: {
-    if (pluginApi) {
-      loadSettings();
-    }
-  }
-
-  Connections {
-    target: pluginApi?.mainInstance || null
-
-    function onCurrentProviderChanged() {
-      root.editCurrentProvider = pluginApi?.mainInstance?.currentProvider || "youtube";
-    }
-
-    function onCurrentSortByChanged() {
-      root.editDefaultSort = pluginApi?.mainInstance?.currentSortBy || "date";
-    }
-
-    function onDownloadDirectoryChanged() {
-      root.editDownloadDirectory = pluginApi?.mainInstance?.downloadDirectory || root.editDownloadDirectory;
-    }
-
-    function onDownloadCacheMaxMbChanged() {
-      root.editDownloadCacheMaxMb = Number(pluginApi?.mainInstance?.downloadCacheMaxMb || 0);
-    }
-
-    function onYtPlayerClientChanged() {
-      root.editYtPlayerClient = pluginApi?.mainInstance?.ytPlayerClient || "android";
-    }
-  }
+  onCurrentDownloadDirectoryChanged: root.editDownloadDirectory = root.currentDownloadDirectory
+  onCurrentDownloadCacheMaxMbChanged: root.editDownloadCacheMaxMb = root.currentDownloadCacheMaxMb
 
   NComboBox {
     Layout.fillWidth: true
@@ -174,12 +105,9 @@ ColumnLayout {
       {"key": "soundcloud", "name": pluginApi?.tr("providers.soundcloud")},
       {"key": "local", "name": pluginApi?.tr("providers.local")}
     ]
-    currentKey: root.editCurrentProvider
+    currentKey: root.currentProvider
     defaultValue: "youtube"
-    onSelected: key => {
-      root.editCurrentProvider = key;
-      pluginApi?.mainInstance?.setProvider(key);
-    }
+    onSelected: key => pluginApi?.mainInstance?.setProvider(key)
   }
 
   NComboBox {
@@ -192,12 +120,9 @@ ColumnLayout {
       {"key": "duration", "name": pluginApi?.tr("sort.duration")},
       {"key": "rating", "name": pluginApi?.tr("sort.rating")}
     ]
-    currentKey: root.editDefaultSort
+    currentKey: root.currentSortBy
     defaultValue: "date"
-    onSelected: key => {
-      root.editDefaultSort = key;
-      pluginApi?.mainInstance?.setSortBy(key);
-    }
+    onSelected: key => pluginApi?.mainInstance?.setSortBy(key)
   }
 
   NComboBox {
@@ -209,12 +134,9 @@ ColumnLayout {
       {"key": "web", "name": pluginApi?.tr("settings.ytClient.web")},
       {"key": "default", "name": pluginApi?.tr("settings.ytClient.default")}
     ]
-    currentKey: root.editYtPlayerClient
+    currentKey: root.currentYtPlayerClient
     defaultValue: "android"
-    onSelected: key => {
-      root.editYtPlayerClient = key;
-      pluginApi?.mainInstance?.setYtPlayerClient(key);
-    }
+    onSelected: key => pluginApi?.mainInstance?.setYtPlayerClient(key)
   }
 
   NDivider {
@@ -279,12 +201,9 @@ ColumnLayout {
   NToggle {
     label: pluginApi?.tr("settings.autoSave.label")
     description: pluginApi?.tr("settings.autoSave.desc")
-    checked: root.editAutoSaveMp3AfterPlayback
-    onToggled: {
-      root.editAutoSaveMp3AfterPlayback = checked;
-      root.saveSettings();
-    }
-    defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.autoSaveMp3AfterPlayback ?? false
+    checked: root.autoSaveMp3AfterPlayback
+    onToggled: root.saveSetting("autoSaveMp3AfterPlayback", checked)
+    defaultValue: root.defaults.autoSaveMp3AfterPlayback ?? false
   }
 
   NDivider {
@@ -302,56 +221,41 @@ ColumnLayout {
   NToggle {
     label: pluginApi?.tr("settings.home.recent.label")
     description: pluginApi?.tr("settings.home.recent.desc")
-    checked: root.editShowHomeRecent
-    onToggled: {
-      root.editShowHomeRecent = checked;
-      root.saveSettings();
-    }
-    defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.showHomeRecent ?? true
+    checked: root.showHomeRecent
+    onToggled: root.saveSetting("showHomeRecent", checked)
+    defaultValue: root.defaults.showHomeRecent ?? true
   }
 
   NToggle {
     label: pluginApi?.tr("settings.home.top.label")
     description: pluginApi?.tr("settings.home.top.desc")
-    checked: root.editShowHomeTop
-    onToggled: {
-      root.editShowHomeTop = checked;
-      root.saveSettings();
-    }
-    defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.showHomeTop ?? true
+    checked: root.showHomeTop
+    onToggled: root.saveSetting("showHomeTop", checked)
+    defaultValue: root.defaults.showHomeTop ?? true
   }
 
   NToggle {
     label: pluginApi?.tr("settings.home.tags.label")
     description: pluginApi?.tr("settings.home.tags.desc")
-    checked: root.editShowHomeTags
-    onToggled: {
-      root.editShowHomeTags = checked;
-      root.saveSettings();
-    }
-    defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.showHomeTags ?? true
+    checked: root.showHomeTags
+    onToggled: root.saveSetting("showHomeTags", checked)
+    defaultValue: root.defaults.showHomeTags ?? true
   }
 
   NToggle {
     label: pluginApi?.tr("settings.home.artists.label")
     description: pluginApi?.tr("settings.home.artists.desc")
-    checked: root.editShowHomeArtists
-    onToggled: {
-      root.editShowHomeArtists = checked;
-      root.saveSettings();
-    }
-    defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.showHomeArtists ?? true
+    checked: root.showHomeArtists
+    onToggled: root.saveSetting("showHomeArtists", checked)
+    defaultValue: root.defaults.showHomeArtists ?? true
   }
 
   NToggle {
     label: pluginApi?.tr("settings.home.playlists.label")
     description: pluginApi?.tr("settings.home.playlists.desc")
-    checked: root.editShowHomePlaylists
-    onToggled: {
-      root.editShowHomePlaylists = checked;
-      root.saveSettings();
-    }
-    defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.showHomePlaylists ?? true
+    checked: root.showHomePlaylists
+    onToggled: root.saveSetting("showHomePlaylists", checked)
+    defaultValue: root.defaults.showHomePlaylists ?? true
   }
 
   NDivider {
@@ -375,21 +279,18 @@ ColumnLayout {
       {"key": "playing", "name": pluginApi?.tr("settings.preview.metadata.playing")},
       {"key": "never", "name": pluginApi?.tr("settings.preview.metadata.disabled")}
     ]
-    currentKey: root.editPreviewMetadataMode
-    defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.previewMetadataMode ?? "always"
-    onSelected: key => {
-      root.editPreviewMetadataMode = key;
-      root.saveSettings();
-    }
+    currentKey: root.previewMetadataMode
+    defaultValue: root.defaults.previewMetadataMode ?? "always"
+    onSelected: key => root.saveSetting("previewMetadataMode", key)
   }
 
   NText {
     Layout.fillWidth: true
     text: {
-      if (root.editPreviewMetadataMode === "never") {
+      if (root.previewMetadataMode === "never") {
         return pluginApi?.tr("settings.preview.metadata.neverHint");
       }
-      if (root.editPreviewMetadataMode === "playing") {
+      if (root.previewMetadataMode === "playing") {
         return pluginApi?.tr("settings.preview.metadata.playingHint");
       }
       return pluginApi?.tr("settings.preview.metadata.alwaysHint");
@@ -408,23 +309,17 @@ ColumnLayout {
       {"key": "comfortable", "name": pluginApi?.tr("settings.preview.thumbnail.comfortable")},
       {"key": "large", "name": pluginApi?.tr("settings.preview.thumbnail.large")}
     ]
-    currentKey: root.editPreviewThumbnailSize
-    defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.previewThumbnailSize ?? "comfortable"
-    onSelected: key => {
-      root.editPreviewThumbnailSize = key;
-      root.saveSettings();
-    }
+    currentKey: root.previewThumbnailSize
+    defaultValue: root.defaults.previewThumbnailSize ?? "comfortable"
+    onSelected: key => root.saveSetting("previewThumbnailSize", key)
   }
 
   NToggle {
     label: pluginApi?.tr("settings.preview.chips.label")
     description: pluginApi?.tr("settings.preview.chips.desc")
-    checked: root.editShowPreviewChips
-    onToggled: {
-      root.editShowPreviewChips = checked;
-      root.saveSettings();
-    }
-    defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.showPreviewChips ?? true
+    checked: root.showPreviewChips
+    onToggled: root.saveSetting("showPreviewChips", checked)
+    defaultValue: root.defaults.showPreviewChips ?? true
   }
 
   NDivider {
@@ -442,78 +337,57 @@ ColumnLayout {
   NToggle {
     label: pluginApi?.tr("settings.metadata.uploader.label")
     description: pluginApi?.tr("settings.metadata.uploader.desc")
-    checked: root.editShowUploaderMetadata
-    onToggled: {
-      root.editShowUploaderMetadata = checked;
-      root.saveSettings();
-    }
-    defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.showUploaderMetadata ?? true
+    checked: root.showUploaderMetadata
+    onToggled: root.saveSetting("showUploaderMetadata", checked)
+    defaultValue: root.defaults.showUploaderMetadata ?? true
   }
 
   NToggle {
     label: pluginApi?.tr("settings.metadata.album.label")
     description: pluginApi?.tr("settings.metadata.album.desc")
-    checked: root.editShowAlbumMetadata
-    onToggled: {
-      root.editShowAlbumMetadata = checked;
-      root.saveSettings();
-    }
-    defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.showAlbumMetadata ?? true
+    checked: root.showAlbumMetadata
+    onToggled: root.saveSetting("showAlbumMetadata", checked)
+    defaultValue: root.defaults.showAlbumMetadata ?? true
   }
 
   NToggle {
     label: pluginApi?.tr("settings.metadata.duration.label")
     description: pluginApi?.tr("settings.metadata.duration.desc")
-    checked: root.editShowDurationMetadata
-    onToggled: {
-      root.editShowDurationMetadata = checked;
-      root.saveSettings();
-    }
-    defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.showDurationMetadata ?? true
+    checked: root.showDurationMetadata
+    onToggled: root.saveSetting("showDurationMetadata", checked)
+    defaultValue: root.defaults.showDurationMetadata ?? true
   }
 
   NToggle {
     label: pluginApi?.tr("settings.metadata.rating.label")
     description: pluginApi?.tr("settings.metadata.rating.desc")
-    checked: root.editShowRatingMetadata
-    onToggled: {
-      root.editShowRatingMetadata = checked;
-      root.saveSettings();
-    }
-    defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.showRatingMetadata ?? true
+    checked: root.showRatingMetadata
+    onToggled: root.saveSetting("showRatingMetadata", checked)
+    defaultValue: root.defaults.showRatingMetadata ?? true
   }
 
   NToggle {
     label: pluginApi?.tr("settings.metadata.tags.label")
     description: pluginApi?.tr("settings.metadata.tags.desc")
-    checked: root.editShowTagMetadata
-    onToggled: {
-      root.editShowTagMetadata = checked;
-      root.saveSettings();
-    }
-    defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.showTagMetadata ?? true
+    checked: root.showTagMetadata
+    onToggled: root.saveSetting("showTagMetadata", checked)
+    defaultValue: root.defaults.showTagMetadata ?? true
   }
 
   NToggle {
     label: pluginApi?.tr("settings.metadata.playStats.label")
     description: pluginApi?.tr("settings.metadata.playStats.desc")
-    checked: root.editShowPlayStatsMetadata
-    onToggled: {
-      root.editShowPlayStatsMetadata = checked;
-      root.saveSettings();
-    }
-    defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.showPlayStatsMetadata ?? true
+    checked: root.showPlayStatsMetadata
+    onToggled: root.saveSetting("showPlayStatsMetadata", checked)
+    defaultValue: root.defaults.showPlayStatsMetadata ?? true
   }
 
   NToggle {
     label: pluginApi?.tr("settings.metadata.status.label")
     description: pluginApi?.tr("settings.metadata.status.desc")
-    checked: root.editShowStatusMetadata
-    onToggled: {
-      root.editShowStatusMetadata = checked;
-      root.saveSettings();
-    }
-    defaultValue: pluginApi?.manifest?.metadata?.defaultSettings?.showStatusMetadata ?? true
+    checked: root.showStatusMetadata
+    onToggled: root.saveSetting("showStatusMetadata", checked)
+    defaultValue: root.defaults.showStatusMetadata ?? true
   }
 
   NFilePicker {

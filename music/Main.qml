@@ -7,6 +7,7 @@ Item {
   id: root
 
   property var pluginApi: null
+  readonly property var defaults: pluginApi?.manifest?.metadata?.defaultSettings ?? ({})
 
   property bool isPlaying: false
   property string currentEntryId: ""
@@ -27,22 +28,54 @@ Item {
   property string currentSortBy: "date"
   property string downloadDirectory: Quickshell.env("HOME") + "/Music/Noctalia"
   property int downloadCacheMaxMb: 0
-  property string previewMetadataMode: "always"
-  property bool showUploaderMetadata: true
-  property bool showAlbumMetadata: true
-  property bool showDurationMetadata: true
-  property bool showRatingMetadata: true
-  property bool showTagMetadata: true
-  property bool showPlayStatsMetadata: true
-  property bool showStatusMetadata: true
-  property bool showPreviewChips: true
-  property string previewThumbnailSize: "comfortable"
-  property bool showHomeRecent: true
-  property bool showHomeTop: true
-  property bool showHomeTags: true
-  property bool showHomeArtists: true
-  property bool showHomePlaylists: true
-  property bool autoSaveMp3AfterPlayback: false
+  readonly property string previewMetadataMode: pluginApi?.pluginSettings?.previewMetadataMode
+      ?? root.defaults.previewMetadataMode
+      ?? "always"
+  readonly property bool showUploaderMetadata: pluginApi?.pluginSettings?.showUploaderMetadata
+      ?? root.defaults.showUploaderMetadata
+      ?? true
+  readonly property bool showAlbumMetadata: pluginApi?.pluginSettings?.showAlbumMetadata
+      ?? root.defaults.showAlbumMetadata
+      ?? true
+  readonly property bool showDurationMetadata: pluginApi?.pluginSettings?.showDurationMetadata
+      ?? root.defaults.showDurationMetadata
+      ?? true
+  readonly property bool showRatingMetadata: pluginApi?.pluginSettings?.showRatingMetadata
+      ?? root.defaults.showRatingMetadata
+      ?? true
+  readonly property bool showTagMetadata: pluginApi?.pluginSettings?.showTagMetadata
+      ?? root.defaults.showTagMetadata
+      ?? true
+  readonly property bool showPlayStatsMetadata: pluginApi?.pluginSettings?.showPlayStatsMetadata
+      ?? root.defaults.showPlayStatsMetadata
+      ?? true
+  readonly property bool showStatusMetadata: pluginApi?.pluginSettings?.showStatusMetadata
+      ?? root.defaults.showStatusMetadata
+      ?? true
+  readonly property bool showPreviewChips: pluginApi?.pluginSettings?.showPreviewChips
+      ?? root.defaults.showPreviewChips
+      ?? true
+  readonly property string previewThumbnailSize: pluginApi?.pluginSettings?.previewThumbnailSize
+      ?? root.defaults.previewThumbnailSize
+      ?? "comfortable"
+  readonly property bool showHomeRecent: pluginApi?.pluginSettings?.showHomeRecent
+      ?? root.defaults.showHomeRecent
+      ?? true
+  readonly property bool showHomeTop: pluginApi?.pluginSettings?.showHomeTop
+      ?? root.defaults.showHomeTop
+      ?? true
+  readonly property bool showHomeTags: pluginApi?.pluginSettings?.showHomeTags
+      ?? root.defaults.showHomeTags
+      ?? true
+  readonly property bool showHomeArtists: pluginApi?.pluginSettings?.showHomeArtists
+      ?? root.defaults.showHomeArtists
+      ?? true
+  readonly property bool showHomePlaylists: pluginApi?.pluginSettings?.showHomePlaylists
+      ?? root.defaults.showHomePlaylists
+      ?? true
+  readonly property bool autoSaveMp3AfterPlayback: pluginApi?.pluginSettings?.autoSaveMp3AfterPlayback
+      ?? root.defaults.autoSaveMp3AfterPlayback
+      ?? false
   property string ytPlayerClient: "android"
 
   property var libraryEntries: []
@@ -93,16 +126,8 @@ Item {
   readonly property string playlistsPath: root.cacheDir + "/playlists.json"
   readonly property string queuePath: root.cacheDir + "/queue.json"
 
-  Component.onCompleted: {
-    refreshPreviewMetadataMode();
-    refreshDisplaySettings();
-    refreshStatus();
-  }
-  onPluginApiChanged: {
-    refreshPreviewMetadataMode();
-    refreshDisplaySettings();
-    refreshStatus();
-  }
+  Component.onCompleted: root.refreshStatus()
+  onPluginApiChanged: root.refreshStatus()
 
   FileView {
     id: stateFile
@@ -1032,60 +1057,6 @@ Item {
     var currentIndex = modes.indexOf(root.currentSortBy);
     var nextIndex = (currentIndex + 1) % modes.length;
     setSortBy(modes[nextIndex]);
-  }
-
-  function refreshPreviewMetadataMode() {
-    root.previewMetadataMode = pluginApi?.pluginSettings?.previewMetadataMode
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.previewMetadataMode
-        ?? "always";
-  }
-
-  function refreshDisplaySettings() {
-    root.showUploaderMetadata = pluginApi?.pluginSettings?.showUploaderMetadata
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showUploaderMetadata
-        ?? true;
-    root.showAlbumMetadata = pluginApi?.pluginSettings?.showAlbumMetadata
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showAlbumMetadata
-        ?? true;
-    root.showDurationMetadata = pluginApi?.pluginSettings?.showDurationMetadata
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showDurationMetadata
-        ?? true;
-    root.showRatingMetadata = pluginApi?.pluginSettings?.showRatingMetadata
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showRatingMetadata
-        ?? true;
-    root.showTagMetadata = pluginApi?.pluginSettings?.showTagMetadata
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showTagMetadata
-        ?? true;
-    root.showPlayStatsMetadata = pluginApi?.pluginSettings?.showPlayStatsMetadata
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showPlayStatsMetadata
-        ?? true;
-    root.showStatusMetadata = pluginApi?.pluginSettings?.showStatusMetadata
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showStatusMetadata
-        ?? true;
-    root.showPreviewChips = pluginApi?.pluginSettings?.showPreviewChips
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showPreviewChips
-        ?? true;
-    root.previewThumbnailSize = pluginApi?.pluginSettings?.previewThumbnailSize
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.previewThumbnailSize
-        ?? "comfortable";
-    root.showHomeRecent = pluginApi?.pluginSettings?.showHomeRecent
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showHomeRecent
-        ?? true;
-    root.showHomeTop = pluginApi?.pluginSettings?.showHomeTop
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showHomeTop
-        ?? true;
-    root.showHomeTags = pluginApi?.pluginSettings?.showHomeTags
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showHomeTags
-        ?? true;
-    root.showHomeArtists = pluginApi?.pluginSettings?.showHomeArtists
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showHomeArtists
-        ?? true;
-    root.showHomePlaylists = pluginApi?.pluginSettings?.showHomePlaylists
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.showHomePlaylists
-        ?? true;
-    root.autoSaveMp3AfterPlayback = pluginApi?.pluginSettings?.autoSaveMp3AfterPlayback
-        ?? pluginApi?.manifest?.metadata?.defaultSettings?.autoSaveMp3AfterPlayback
-        ?? false;
   }
 
   function sortLabel(sortBy) {
