@@ -198,7 +198,7 @@
     {
       "id": "custom-commands",
       "name": "Custom Commands",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "official": true,
       "author": "Noctalia Team",
       "description": "Define and run custom shell commands from the launcher",
@@ -208,7 +208,7 @@
       "tags": [
         "Launcher"
       ],
-      "lastUpdated": "2026-03-20T21:27:33+01:00"
+      "lastUpdated": "2026-03-26T18:22:31+01:00"
     },
     {
       "id": "custom-sticker",
@@ -350,6 +350,27 @@
       "license": "MIT",
       "tags": [],
       "lastUpdated": "2026-01-29T22:32:10+01:00"
+    },
+    {
+      "id": "hyprland-visual-editor",
+      "name": "Hyprland Visual Editor",
+      "version": "1.0.0",
+      "official": false,
+      "author": "XimoCP",
+      "description": "Elevate your Hyprland experience. A modular plugin to safely inject custom animations, borders, and visual effects on the fly.",
+      "repository": "https://github.com/noctalia-dev/noctalia-plugins",
+      "minNoctaliaVersion": "4.4.1",
+      "license": "MIT",
+      "tags": [
+        "Panel",
+        "Bar",
+        "System",
+        "Fun",
+        "Theming",
+        "Utility",
+        "Hyprland"
+      ],
+      "lastUpdated": "2026-03-24T16:28:01+01:00"
     },
     {
       "id": "ideapad-battery-health",
@@ -511,6 +532,24 @@
         "Development"
       ],
       "lastUpdated": "2026-01-26T23:59:29-05:00"
+    },
+    {
+      "id": "mirror-mirror",
+      "name": "Mirror Mirror",
+      "version": "0.1.0",
+      "official": false,
+      "author": "Mathew-D",
+      "description": "Mirror one monitor to another using wl-mirror.",
+      "repository": "https://github.com/noctalia-dev/noctalia-plugins",
+      "minNoctaliaVersion": "3.6.0",
+      "license": "MIT",
+      "tags": [
+        "Bar",
+        "Panel",
+        "Utility",
+        "System"
+      ],
+      "lastUpdated": "2026-03-25T20:32:27-04:00"
     },
     {
       "id": "model-usage",
@@ -1147,7 +1186,7 @@
     {
       "id": "translator",
       "name": "Translator",
-      "version": "1.2.4",
+      "version": "1.2.5",
       "official": false,
       "author": "Cleboost",
       "description": "Quick translate in launcher",
@@ -1157,7 +1196,7 @@
       "tags": [
         "Launcher"
       ],
-      "lastUpdated": "2026-03-08T21:08:15+07:00"
+      "lastUpdated": "2026-03-26T03:22:07+01:00"
     },
     {
       "id": "unicode-picker",
