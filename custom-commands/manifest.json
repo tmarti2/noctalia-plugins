@@ -1,7 +1,7 @@
 {
   "id": "custom-commands",
   "name": "Custom Commands",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Define and run custom shell commands from the launcher",
   "tags": ["Launcher"],
   "minNoctaliaVersion": "4.4.1",
