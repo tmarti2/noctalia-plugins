@@ -123,9 +123,24 @@
       "label": "Hide prayer name in bar",
       "desc": "Show only the time or countdown in the bar widget, without the prayer name label."
     },
+    "styling": {
+      "header": "Styling"
+    },
     "widgetIcon": {
       "label": "Bar icon",
       "desc": "Icon name from the icon set used by Noctalia (e.g. building-mosque, moon-stars, star)."
+    },
+    "textColor": {
+      "label": "Bar text color",
+      "desc": "Color used for text in the bar widget"
+    },
+    "iconColor": {
+      "label": "Bar icon color",
+      "desc": "Color used for the icon in the bar widget"
+    },
+    "activeColor": {
+      "label": "Active Color",
+      "desc": "Color used when prayer is Now or Elapsed"
     }
   },
   "error": {

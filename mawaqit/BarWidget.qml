@@ -28,7 +28,11 @@ Item {
   readonly property bool showCountdown:  cfg.showCountdown  ?? defaults.showCountdown  ?? true
   readonly property bool showElapsed:    cfg.showElapsed    ?? defaults.showElapsed    ?? false
   readonly property bool hidePrayerName: cfg.hidePrayerName ?? defaults.hidePrayerName ?? false
+
   readonly property string widgetIcon:   cfg.widgetIcon     ?? defaults.widgetIcon     ?? "building-mosque"
+  readonly property string textColor:    cfg.textColor      ?? defaults.textColor      ?? "none"
+  readonly property string iconColor:    cfg.iconColor      ?? defaults.iconColor      ?? "none"
+  readonly property string activeColor:  cfg.activeColor    ?? defaults.activeColor    ?? "primary"
 
   readonly property bool use12h:   Settings.data.location.use12hourFormat
   readonly property bool isJumuah: new Date().getDay() === 5
@@ -170,7 +174,7 @@ Item {
     width:  root.contentWidth
     height: root.contentHeight
     radius: Style.radiusL
-    color:        mouseArea.containsMouse ? Color.mHover : Style.capsuleColor
+    color:        Style.capsuleColor
     border.color: azanPlaying ? Color.mPrimary : Style.capsuleBorderColor
     border.width: Style.capsuleBorderWidth
 
@@ -181,15 +185,13 @@ Item {
     RowLayout {
       id: hLayout
       anchors.fill: parent
-      anchors.leftMargin:  Style.marginM
-      anchors.rightMargin: Style.marginM
       spacing: Style.marginS
       visible: !isVertical
 
       NIcon {
         icon: root.widgetIcon
         pointSize: root.iconSize
-        color: mouseArea.containsMouse ? Color.mOnHover : Color.mPrimary
+        color: Color.resolveColorKey(prayerNow || isElapsed ? root.activeColor : root.iconColor)
         Layout.alignment: Qt.AlignVCenter
       }
 
@@ -212,9 +214,7 @@ Item {
         text: root.displayText
         pointSize: root.barFontSize
         applyUiScale: false
-        color: mouseArea.containsMouse
-          ? Color.mOnHover
-          : (prayerNow || isElapsed ? Color.mPrimary : Color.mOnSurface)
+        color: Color.resolveColorKey(prayerNow || isElapsed ? root.activeColor : root.textColor)
         Layout.alignment: Qt.AlignVCenter
         Behavior on color { ColorAnimation { duration: 300 } }
       }
@@ -242,7 +242,7 @@ Item {
         NIcon {
           icon: root.widgetIcon
           pointSize: Style.toOdd(root.capsuleHeight * 0.45)
-          color: mouseArea.containsMouse ? Color.mOnHover : Color.mPrimary
+          color: Color.resolveColorKey(root.iconColor)
         }
 
         NIcon {
@@ -264,9 +264,7 @@ Item {
         pointSize: root.barFontSize * 0.7
         applyUiScale: false
         font.weight: Font.Medium
-        color: mouseArea.containsMouse
-          ? Color.mOnHover
-          : (prayerNow || isElapsed ? Color.mPrimary : Color.mOnSurface)
+        color: Color.resolveColorKey(prayerNow || isElapsed ? root.activeColor : root.textColor)
         Layout.alignment: Qt.AlignHCenter
         Behavior on color { ColorAnimation { duration: 300 } }
       }
@@ -275,9 +273,7 @@ Item {
         pointSize: root.barFontSize * 0.8
         applyUiScale: false
         opacity: 0.75
-        color: mouseArea.containsMouse
-          ? Color.mOnHover
-          : (prayerNow || isElapsed ? Color.mPrimary : Color.mOnSurface)
+        color: Color.resolveColorKey(prayerNow || isElapsed ? root.activeColor : root.textColor)
         Layout.alignment: Qt.AlignHCenter
         visible: root.verticalLine2 !== ""
         Behavior on color { ColorAnimation { duration: 300 } }

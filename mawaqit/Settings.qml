@@ -51,6 +51,9 @@ ColumnLayout {
   property int    valueHijriDayOffset:    cfg.hijriDayOffset    ?? defaults.hijriDayOffset    ?? 0
   property int    valueWeekStartDay:      cfg.weekStartDay      ?? defaults.weekStartDay      ?? 1
   property string valueWidgetIcon:        cfg.widgetIcon        ?? defaults.widgetIcon        ?? "building-mosque"
+  property string valueTextColor:         cfg.textColor         ?? defaults.textColor         ?? "none"
+  property string valueIconColor:         cfg.iconColor         ?? defaults.iconColor         ?? "none"
+  property string valueActiveColor:       cfg.activeColor       ?? defaults.activeColor       ?? "primary"
 
   property bool previewing: false
 
@@ -211,6 +214,37 @@ ColumnLayout {
     Layout.bottomMargin: -Style.marginM
   }
 
+  NToggle {
+    Layout.fillWidth: true
+    label: pluginApi?.tr("settings.showCountdown.label")
+    description: pluginApi?.tr("settings.showCountdown.desc")
+    checked: root.valueShowCountdown
+    onToggled: checked => root.valueShowCountdown = checked
+  }
+
+  NToggle {
+    Layout.fillWidth: true
+    label: pluginApi?.tr("settings.showElapsed.label")
+    description: pluginApi?.tr("settings.showElapsed.desc")
+    checked: root.valueShowElapsed
+    onToggled: checked => root.valueShowElapsed = checked
+  }
+
+  NToggle {
+    Layout.fillWidth: true
+    label: pluginApi?.tr("settings.hidePrayerName.label")
+    description: pluginApi?.tr("settings.hidePrayerName.desc")
+    checked: root.valueHidePrayerName
+    onToggled: checked => root.valueHidePrayerName = checked
+  }
+
+  NDivider { Layout.fillWidth: true }
+
+  NHeader {
+    label: pluginApi?.tr("settings.styling.header")
+    Layout.bottomMargin: -Style.marginM
+  }
+
   RowLayout {
     Layout.fillWidth: true
     spacing: Style.marginM
@@ -252,28 +286,23 @@ ColumnLayout {
     }
   }
 
-  NToggle {
-    Layout.fillWidth: true
-    label: pluginApi?.tr("settings.showCountdown.label")
-    description: pluginApi?.tr("settings.showCountdown.desc")
-    checked: root.valueShowCountdown
-    onToggled: checked => root.valueShowCountdown = checked
+  NColorChoice {
+    label: pluginApi?.tr("settings.textColor.label")
+    currentKey: root.valueTextColor
+    onSelected: key => { root.valueTextColor = key; }
   }
 
-  NToggle {
-    Layout.fillWidth: true
-    label: pluginApi?.tr("settings.showElapsed.label")
-    description: pluginApi?.tr("settings.showElapsed.desc")
-    checked: root.valueShowElapsed
-    onToggled: checked => root.valueShowElapsed = checked
+  NColorChoice {
+    label: pluginApi?.tr("settings.iconColor.label")
+    currentKey: root.valueIconColor
+    onSelected: key => { root.valueIconColor = key; }
   }
 
-  NToggle {
-    Layout.fillWidth: true
-    label: pluginApi?.tr("settings.hidePrayerName.label")
-    description: pluginApi?.tr("settings.hidePrayerName.desc")
-    checked: root.valueHidePrayerName
-    onToggled: checked => root.valueHidePrayerName = checked
+  NColorChoice {
+    label: pluginApi?.tr("settings.activeColor.label")
+    description: pluginApi?.tr("settings.activeColor.description")
+    currentKey: root.valueActiveColor
+    onSelected: key => { root.valueActiveColor = key; }
   }
 
   NDivider { Layout.fillWidth: true }
@@ -396,6 +425,9 @@ ColumnLayout {
     pluginApi.pluginSettings.tuneMaghrib       = root.valueTuneMaghrib
     pluginApi.pluginSettings.tuneIsha          = root.valueTuneIsha
     pluginApi.pluginSettings.widgetIcon        = root.valueWidgetIcon
+    pluginApi.pluginSettings.textColor         = root.valueTextColor
+    pluginApi.pluginSettings.iconColor         = root.valueIconColor
+    pluginApi.pluginSettings.activeColor       = root.valueActiveColor
     pluginApi.saveSettings()
     Logger.d("Mawaqit", "Settings saved")
   }
