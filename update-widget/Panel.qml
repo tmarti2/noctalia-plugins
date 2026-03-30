@@ -196,7 +196,7 @@ Item {
                     Layout.fillWidth: true
                     text: pluginApi.tr("panel.refresh")
                     onClicked: {
-                        Logger.i("Update Widget", "Refreshing from panel...")
+                        Logger.d("Update Widget", "Refreshing from panel...")
                         root.pluginApi.mainInstance.refresh()
                     }
                 }
@@ -205,7 +205,7 @@ Item {
                     Layout.fillWidth: true
                     text: pluginApi.tr("panel.update")
                     onClicked: {
-                        Logger.i("Update Widget", "Updating from panel...")
+                        Logger.d("Update Widget", "Updating from panel...")
                         root.pluginApi.mainInstance.update()
                         pluginApi.closePanel(pluginApi.panelOpenScreen)
                     }
@@ -214,7 +214,7 @@ Item {
                 NIconButton { // Update Button
                     icon: "settings"
                     onClicked: {
-                        Logger.i("Update Widget", "Opening settings from panel...")
+                        Logger.d("Update Widget", "Opening settings from panel...")
                         BarService.openPluginSettings(screen, pluginApi.manifest)
                         pluginApi.closePanel(pluginApi.panelOpenScreen)
                     }

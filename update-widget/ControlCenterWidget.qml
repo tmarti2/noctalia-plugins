@@ -3,13 +3,11 @@ import Quickshell
 import qs.Widgets
 
 NIconButtonHot {
-  property ShellScreen screen
-  property var pluginApi: null
+    property ShellScreen screen
+    property var pluginApi: null
 
-  icon: "arrow-big-down-lines"
-  tooltipText: pluginApi.tr("ccw.tooltip")
+    icon: "arrow-big-down-lines"
+    tooltipText: pluginApi.tr("ccw.tooltip")
 
-  onClicked: {
-    pluginApi.togglePanel(screen, this)
-  }
+    onClicked: pluginApi.togglePanel(screen, this)
 }

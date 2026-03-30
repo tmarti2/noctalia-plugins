@@ -59,7 +59,7 @@ ColumnLayout {
         text: root.nameCmd
         onTextChanged: {
             root.nameCmd = text
-            Logger.i("Update Widget", "Name command set to: " + root.nameCmd)
+            Logger.d("Update Widget", "Name command set to: " + root.nameCmd)
         }
     }
 
@@ -71,7 +71,7 @@ ColumnLayout {
         text: root.oldVerCmd
         onTextChanged: {
             root.oldVerCmd = text
-            Logger.i("Update Widget", "Name command set to: " + root.oldVerCmd)
+            Logger.d("Update Widget", "Name command set to: " + root.oldVerCmd)
         }
     }
 
@@ -83,7 +83,7 @@ ColumnLayout {
         text: root.newVerCmd
         onTextChanged: {
             root.newVerCmd = text
-            Logger.i("Update Widget", "Name command set to: " + root.newVerCmd)
+            Logger.d("Update Widget", "Name command set to: " + root.newVerCmd)
         }
     }
 
@@ -95,7 +95,7 @@ ColumnLayout {
         text: root.updateCmd
         onTextChanged: {
             root.updateCmd = text
-            Logger.i("Update Widget", "Name command set to: " + root.updateCmd)
+            Logger.d("Update Widget", "Name command set to: " + root.updateCmd)
         }
     }
 
@@ -117,16 +117,7 @@ ColumnLayout {
             label: pluginApi.tr("settings.toast")
             description: pluginApi.tr("settings.toastDesc")
             checked: root.toast
-        }
-        // Mouse area so you can actually use the toggle
-        MouseArea {
-            anchors.fill: parent
-            cursorShape: Qt.PointingHandCursor
-            onClicked: {
-                root.toast = !root.toast
-                toastToggle.checked = root.toast
-                Logger.i("Update Widget", "Toast toggle set to: " + toastToggle.checked)
-            }
+            onToggled: checked => root.toast = checked
         }
     }
 
@@ -146,16 +137,7 @@ ColumnLayout {
             label: pluginApi.tr("settings.flatpak")
             description: pluginApi.tr("settings.flatpakDesc")
             checked: root.flatpak
-        }
-        // Mouse area so you can actually use the toggle
-        MouseArea {
-            anchors.fill: parent
-            cursorShape: Qt.PointingHandCursor
-            onClicked: {
-                root.flatpak = !root.flatpak
-                flatpakToggle.checked = root.flatpak
-                Logger.i("Update Widget", "Flatpak toggle set to: " + flatpakToggle.checked)
-            }
+            onToggled: checked => root.flatpak = checked
         }
     }
 
@@ -175,16 +157,7 @@ ColumnLayout {
             label: pluginApi.tr("settings.noctalia")
             description: pluginApi.tr("settings.noctaliaDesc")
             checked: root.noctalia
-        }
-        // Mouse area so you can actually use the toggle
-        MouseArea {
-            anchors.fill: parent
-            cursorShape: Qt.PointingHandCursor
-            onClicked: {
-                root.noctalia = !root.noctalia
-                noctaliaToggle.checked = root.noctalia
-                Logger.i("Update Widget", "Noctalia toggle set to: " + noctaliaToggle.checked)
-            }
+            onToggled: checked => root.noctalia = checked
         }
     }
 
@@ -204,16 +177,7 @@ ColumnLayout {
             label: pluginApi.tr("settings.hideOnEmpty")
             description: pluginApi.tr("settings.hideOnEmptyDesc")
             checked: root.hideOnEmpty
-        }
-        // Mouse area so you can actually use the toggle
-        MouseArea {
-            anchors.fill: parent
-            cursorShape: Qt.PointingHandCursor
-            onClicked: {
-                root.hideOnEmpty = !root.hideOnEmpty
-                hideOnEmptyToggle.checked = root.hideOnEmpty
-                Logger.i("Update Widget", "Hide on empty toggle set to: " + hideOnEmptyToggle.checked)
-            }
+            onToggled: checked => root.hideOnEmpty = checked
         }
     }
 
@@ -233,16 +197,7 @@ ColumnLayout {
             label: pluginApi.tr("settings.desktopTip")
             description: pluginApi.tr("settings.desktopTipDesc")
             checked: root.desktopTip
-        }
-        // Mouse area so you can actually use the toggle
-        MouseArea {
-            anchors.fill: parent
-            cursorShape: Qt.PointingHandCursor
-            onClicked: {
-                root.desktopTip = !root.desktopTip
-                desktopTipToggle.checked = root.desktopTip
-                Logger.i("Update Widget", "Desktop tip toggle set to: " + desktopTipToggle.checked)
-            }
+            onToggled: checked => root.desktopTip = checked
         }
     }
 
@@ -262,16 +217,7 @@ ColumnLayout {
             label: pluginApi.tr("settings.refreshTimer")
             description: pluginApi.tr("settings.refreshTimerDesc")
             checked: root.refreshTimer
-        }
-        // Mouse area so you can actually use the toggle
-        MouseArea {
-            anchors.fill: parent
-            cursorShape: Qt.PointingHandCursor
-            onClicked: {
-                root.refreshTimer = !root.refreshTimer
-                refreshTimerToggle.checked = root.refreshTimer
-                Logger.i("Update Widget", "Refresh timer toggle set to: " + refreshTimerToggle.checked)
-            }
+            onToggled: checked => root.refreshTimer = checked
         }
     }
 
@@ -292,7 +238,7 @@ ColumnLayout {
             value: root.refreshInterval
             onValueChanged: {
                 root.refreshInterval = value
-                Logger.i("Update Widget", "Refresh interval set to: " + root.refreshInterval)
+                Logger.d("Update Widget", "Refresh interval set to: " + root.refreshInterval)
             }
         }
     }

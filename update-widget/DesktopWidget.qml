@@ -230,15 +230,15 @@ DraggableDesktopWidget {
 
         onClicked: (mouse) => {
             if (mouse.button === Qt.LeftButton) {
-                Logger.i("Update Widget", "Refreshing from desktop widget...")
+                Logger.d("Update Widget", "Refreshing from desktop widget...")
                 root.pluginApi.mainInstance.refresh() // Refresh available updates
             }
             else if (mouse.button === Qt.MiddleButton) {
-                Logger.i("Update Widget", "Updating from desktop widget...")
+                Logger.d("Update Widget", "Updating from desktop widget...")
                 root.pluginApi.mainInstance.update() // Update
             }
             else if (mouse.button === Qt.RightButton) {
-                Logger.i("Update Widget", "Opening settings from desktop widget...")
+                Logger.d("Update Widget", "Opening settings from desktop widget...")
                 BarService.openPluginSettings(screen, pluginApi.manifest)
             }
         }
@@ -249,7 +249,7 @@ DraggableDesktopWidget {
             running: false
             repeat: false
             onTriggered: {
-                Logger.i("Update Widget", "Showing hover tip...")
+                Logger.d("Update Widget", "Showing hover tip...")
                 hoverTip.opacity = 0.85
                 hoverTip.visible = true
             }
@@ -257,13 +257,13 @@ DraggableDesktopWidget {
 
         onEntered: {
             if (pluginApi.pluginSettings.desktopTip) {
-                Logger.i("Update Widget", "Starting hover tip timer...")
+                Logger.d("Update Widget", "Starting hover tip timer...")
                 hoverTimer.restart()
             }
         }
 
         onExited: {
-            Logger.i("Update Widget", "Hover tip timer stopped!")
+            Logger.d("Update Widget", "Hover tip timer stopped!")
             hoverTimer.stop()
             hoverTip.opacity = 0
             hoverTip.visible = false

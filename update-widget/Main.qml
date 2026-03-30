@@ -33,6 +33,15 @@ Item {
     property variant noctaliaNames: ["noctalia-qs", "noctalia-shell"]
     property bool noctaliaUpdate: false
 
+    function checkNoctalia() { // Check Noctalia Updates
+        if (noctaliaNames.some(name => root.nameStr.includes(name)) && pluginApi.pluginSettings.noctalia) {
+            root.noctaliaUpdate = true
+            Logger.d("Update Widget", "Noctalia updates found");
+        } else {
+            Logger.d("Update Widget", "No Noctalia updates found");
+        }
+    }
+
     // On plugin load
     Component.onCompleted: {
         refresh()
@@ -68,14 +77,6 @@ Item {
         runUpdate.command = ["sh", "-c", pluginApi.pluginSettings.updateCmd || pluginApi.manifest.metadata.defaultSettings.updateCmd]
         runUpdate.running = true
     }
-    function checkNoctalia() { // Check Noctalia Updates
-        if (noctaliaNames.some(name => root.nameStr.includes(name)) && pluginApi.pluginSettings.noctalia) {
-            root.noctaliaUpdate = true
-            Logger.i("Update Widget", "Noctalia updates found");
-        } else {
-            Logger.i("Update Widget", "No Noctalia updates found");
-        }
-    }
 
     // System Updates
     Process { // Update Names
@@ -84,8 +85,8 @@ Item {
             onStreamFinished: {
                 root.nameStr = this.text.slice(0,-1) // Slice removes the newline from the end of the output
                 root.updateCount = root.nameStr ? root.nameStr.split("\n").length : 0
-                Logger.i("Update Widget", "Update names: " + root.nameStr.split("\n"))
-                Logger.i("Update Widget", "Update count: " + root.updateCount)
+                Logger.d("Update Widget", "Update names: " + root.nameStr.split("\n"))
+                Logger.d("Update Widget", "Update count: " + root.updateCount)
                 checkNoctalia()
 
                 getOldVers.running = true
@@ -97,7 +98,7 @@ Item {
         stdout: StdioCollector {
             onStreamFinished: {
                 root.oldVerStr = this.text.slice(0,-1)
-                Logger.i("Update Widget", "Update old versions: " + root.oldVerStr.split("\n"))
+                Logger.d("Update Widget", "Update old versions: " + root.oldVerStr.split("\n"))
 
                 getNewVers.running = true
             }
@@ -108,7 +109,7 @@ Item {
         stdout: StdioCollector {
             onStreamFinished: {
                 root.newVerStr = this.text.slice(0,-1)
-                Logger.i("Update Widget", "Update new versions: " + root.newVerStr.split("\n"))
+                Logger.d("Update Widget", "Update new versions: " + root.newVerStr.split("\n"))
             }
         }
     }
@@ -119,14 +120,13 @@ Item {
         command: ["sh", "-c", " flatpak remote-ls --updates --columns=application | sort"]
         stdout: StdioCollector {
             onStreamFinished: {
-                Logger.i("Update Widget", "Flatpak refresh")
+                Logger.d("Update Widget", "Flatpak refresh")
                 root.flatpakCount = this.text.slice(0,-1) ? this.text.slice(0,-1).split("\n").length : 0
-                Logger.i("Update Widget", "Flatpak update IDs: " + this.text.slice(0,-1).slice("\n"))
-                Logger.i("Update Widget", "Flatpak count: " + root.flatpakCount)
+                Logger.d("Update Widget", "Flatpak update IDs: " + this.text.slice(0,-1).slice("\n"))
+                Logger.d("Update Widget", "Flatpak count: " + root.flatpakCount)
 
                 if (root.flatpakCount) {
                     getFlatpakOldVers.command = ["sh", "-c", "flatpak list --columns=application,version | grep -E '" + this.text.slice(0,-1).replace(/\n/g, "|") +"' | sort | awk '{print $2}'"]
-                    Logger.d("Update Widget", "Flatpak old ver cmd: " + getFlatpakOldVers.command)
                     getFlatpakOldVers.running = true
                 }
             }
@@ -137,7 +137,7 @@ Item {
         stdout: StdioCollector {
             onStreamFinished: {
                 root.flatpakOldVerStr = this.text.slice(0, -1)
-                Logger.i("Update Widget", "Flatpak update old versions: " + root.flatpakOldVerStr.split("\n"))
+                Logger.d("Update Widget", "Flatpak update old versions: " + root.flatpakOldVerStr.split("\n"))
                 getFlatpakNewVers.running = true
             }
         }
@@ -148,7 +148,7 @@ Item {
         stdout: StdioCollector {
             onStreamFinished: {
                 root.flatpakNewVerStr = this.text.slice(0, -1)
-                Logger.i("Update Widget", "Flatpak update new versions: " + root.flatpakNewVerStr.split("\n"))
+                Logger.d("Update Widget", "Flatpak update new versions: " + root.flatpakNewVerStr.split("\n"))
                 getFlatpakNames.running = true
             }
         }
@@ -159,7 +159,7 @@ Item {
         stdout: StdioCollector {
             onStreamFinished: {
                 root.flatpakNameStr = this.text.slice(0, -1)
-                Logger.i("Update Widget", "Flatpak update names: " + root.flatpakNameStr.split("\n"))
+                Logger.d("Update Widget", "Flatpak update names: " + root.flatpakNameStr.split("\n"))
             }
         }
     }
@@ -179,19 +179,22 @@ Item {
         running: true
         repeat: true
 
-        onTriggered: refresh()
+        onTriggered: {
+            Logger.d("Update Widget", "Timer refresh...")
+            refresh()
+        }
     }
 
     IpcHandler { // IPC!
         target: "plugin:update-widget"
 
         function refresh() {
-            Logger.i("Update Widget", "Refreshing through IPC...")
+            Logger.d("Update Widget", "Refreshing through IPC...")
             root.pluginApi.mainInstance.refresh()
         }
 
         function update() {
-            Logger.i("Update Widget", "Updating through IPC...")
+            Logger.d("Update Widget", "Updating through IPC...")
             root.pluginApi.mainInstance.update()
         }
     }

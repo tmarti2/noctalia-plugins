@@ -19,6 +19,8 @@ Item {
     property ShellScreen screen
     property string widgetId: ""
     property string section: ""
+    property int sectionWidgetIndex: -1
+    property int sectionWidgetsCount: 0
 
     // Per-screen bar properties (for multi-monitor and vertical bar support)
     readonly property string screenName: screen.name ?? ""
@@ -49,7 +51,7 @@ Item {
         y: Style.pixelAlignCenter(parent.height, height)
         width: root.contentWidth
         height: root.contentHeight
-        color: mouseArea.containsMouse ? Color.mHover : (root.pluginApi.mainInstance.noctaliaUpdate ? "#40"+Color.mTertiary.toString().slice(1) : Style.capsuleColor)
+        color: mouseArea.containsMouse ? Color.mHover : (root.pluginApi.mainInstance.noctaliaUpdate ? "#40" + Color.mTertiary.toString().slice(1) : Style.capsuleColor)
         radius: Style.radiusL
         border.color: Style.capsuleBorderColor
         border.width: Style.capsuleBorderWidth
@@ -60,7 +62,7 @@ Item {
             spacing: Style.marginS
             NIcon { // Icon
                 color: mouseArea.containsMouse ? Color.mOnHover : (root.pluginApi.mainInstance.noctaliaUpdate ? Color.mHover : Color.mPrimary)
-                icon: root.pluginApi.mainInstance.noctaliaUpdate | mouseArea.containsMouse ? "arrow-big-down-lines-filled" : "arrow-big-down-lines"
+                icon: (root.pluginApi.mainInstance.noctaliaUpdate | mouseArea.containsMouse) ? "arrow-big-down-lines-filled" : "arrow-big-down-lines"
             }
             NText { // Count
                 text: (root.pluginApi.mainInstance.updateCount + root.pluginApi.mainInstance.flatpakCount).toString() // Total count (system + flatpak)
@@ -98,15 +100,15 @@ Item {
 
             // Handle actions
             if (action === "refresh") {
-                Logger.i("Update Widget", "Refreshing from context menu...")
+                Logger.d("Update Widget", "Refreshing from context menu...")
                 root.pluginApi.mainInstance.refresh() // Refresh available updates
             }
             else if (action === "update") {
-                Logger.i("Update Widget", "Updating from context menu...")
+                Logger.d("Update Widget", "Updating from context menu...")
                 root.pluginApi.mainInstance.update() // Update
             }
             else if (action === "settings") {
-                Logger.i("Update Widget", "Opening settings from context menu...")
+                Logger.d("Update Widget", "Opening settings from context menu...")
                 BarService.openPluginSettings(screen, pluginApi.manifest) // Open plugin settings
             }
         }
@@ -121,15 +123,15 @@ Item {
 
         onClicked: (mouse) => {
             if (mouse.button === Qt.LeftButton) {
-                Logger.i("Update Widget", "Opening panel from bar...")
+                Logger.d("Update Widget", "Opening panel from bar...")
                 pluginApi.openPanel(root.screen, root) // Open panel
             }
             else if (mouse.button === Qt.RightButton) {
-                Logger.i("Update Widget", "Opening context menu from bar...")
+                Logger.d("Update Widget", "Opening context menu from bar...")
                 PanelService.showContextMenu(contextMenu, root, screen) // Open context menu
             }
             else if (mouse.button === Qt.MiddleButton) {
-                Logger.i("Update Widget", "Refreshing from bar...")
+                Logger.d("Update Widget", "Refreshing from bar...")
                 root.pluginApi.mainInstance.refresh() // Refresh available updates
             }
         }
