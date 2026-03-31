@@ -128,7 +128,7 @@ jobs:
               reset_required_properties
 
               title_added=false
-              file_title=$(printf -- '\n### File: %s' "$(echo "$line" | sed 's/diff --git a\/\(manifest\.json\) .*/\1/g')")
+              file_title=$(printf -- '\n### File: %s' "$(echo "$line" | sed 's/diff --git a\/\(.*/manifest\.json\) .*/\1/g')")
               echo "Checking file: $file_title"
             elif echo "$line" | grep -E "^@@" >/dev/null; then
               line_index=$(echo "$line" | grep -oE "\+[0-9]+" | grep -oE "[0-9]+")
