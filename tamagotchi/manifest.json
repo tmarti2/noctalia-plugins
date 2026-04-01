@@ -24,6 +24,7 @@
       "cleanliness": 100,
       "energy": 100,
       "volume": 0.5,
+      "difficulty": 50,
       "showDebug": false,
       "showPercentage": false
     }

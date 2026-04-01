@@ -52,7 +52,7 @@ Item {
 
 
     Timer {
-        interval: 60000 // 1 minuto
+        interval: 30000 // 30 segs
         running:  true
         repeat:   true
         onTriggered: pluginApi?.mainInstance?.decay()

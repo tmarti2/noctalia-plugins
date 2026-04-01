@@ -9,7 +9,13 @@ QtObject {
     property int hunger:      cfg.hunger      ?? 100
     property int happiness:   cfg.happiness   ?? 100
     property int cleanliness: cfg.cleanliness ?? 100
-    property int energy:      cfg.energy      ?? 100
+		property int energy:      cfg.energy      ?? 100
+
+		property real difficulty: pluginApi?.pluginSettings?.difficulty ?? 50
+		readonly property real difficultyFactor: {
+				// 0 = too slow, 100 = fast
+				return 0.3 + (difficulty / 100) * 1.7
+		}
 
 		property bool _sleeping: false
 		property bool eating: false
@@ -70,23 +76,30 @@ QtObject {
 		}
 
 		function play(h,e = 15) {
-			if (energy < 10) return
+			if (energy < 10 || happiness >= 99) return
 			happiness   = Math.min(100, happiness + h)
 			energy      = Math.max(0, energy - e)
 			save()
 		}
 
+		function _randFactor(min = 0.9, max = 1.1) {
+				return min + Math.random() * (max - min)
+		}
+
 		function decay() {
-				if (root._sleeping) {
-						energy      = Math.min(100, energy + 15)
-						hunger      = Math.max(0, hunger - 0.3)
-						happiness   = Math.max(0, happiness - 0.2)
-						cleanliness = Math.max(0, cleanliness - 0.2)
+				const f = difficultyFactor
+
+				if (_sleeping) {
+						console.log(Math.min(100, energy + 2.3 * f))
+						energy      = Math.min(100, energy + 2.3 * f * _randFactor())
+						hunger      = Math.max(0, hunger - 0.03 * f * _randFactor())
+						happiness   = Math.max(0, happiness - 0.005 * f * _randFactor())
+						cleanliness = Math.max(0, cleanliness - 0.02 * f * _randFactor())
 				} else {
-						hunger      = Math.max(0, hunger - 0.7)
-						happiness   = Math.max(0, happiness - 0.3)
-						cleanliness = Math.max(0, cleanliness - 0.5)
-						energy      = Math.max(0, energy - 0.4)
+						hunger      = Math.max(0, hunger - 0.14 * f * _randFactor())
+						happiness   = Math.max(0, happiness - 0.01 * f * _randFactor())
+						cleanliness = Math.max(0, cleanliness - 0.08 * f * _randFactor(0.8, 1.3))
+						energy      = Math.max(0, energy - 0.06 * f * _randFactor())
 				}
 
 				save()
