@@ -8,8 +8,8 @@ Item {
     property var pluginApi: null
 
     property bool keyboardActive: false
-    property bool gsettingsOk: true
-    property bool squeekboardOk: true
+    property bool gsettingsOk: false
+    property bool squeekboardOk: false
     property bool available: gsettingsOk && squeekboardOk
 
     // --- Initial state check ---
