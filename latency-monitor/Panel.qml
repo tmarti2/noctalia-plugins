@@ -162,7 +162,7 @@ Item {
                         ColumnLayout {
                             id: statCol
                             anchors { fill: parent; margins: Style.marginS }
-                            spacing: 2
+                            spacing: Style.marginS
 
                             NText {
                                 text:  parent.parent._hasVal ? Math.round(parent.parent._avg) + " ms" : "—"
@@ -172,7 +172,7 @@ Item {
                                 Layout.alignment: Qt.AlignHCenter
                             }
                             NText {
-                                text:      pluginApi?.tr(modelData.labelKey) ?? ""
+                                text:      pluginApi?.tr(modelData.labelKey)
                                 pointSize: Style.fontSizeXS
                                 color:     Color.mSecondary
                                 Layout.alignment: Qt.AlignHCenter
@@ -248,10 +248,10 @@ Item {
 
                             Row {
                                 anchors { left: parent.left; right: labelBox.left; rightMargin: Style.marginXS }
-                                spacing: 3
+                                spacing: Style.marginXS
                                 Repeater {
                                     model: Math.ceil(parent.width / 7)
-                                    delegate: Rectangle { width: 4; height: 1; color: Qt.alpha(parent.parent.parent._col, 0.40) }
+                                    delegate: Rectangle { width: Style.marginS; height: 1; color: Qt.alpha(parent.parent.parent._col, 0.40) }
                                 }
                             }
 
@@ -307,7 +307,7 @@ Item {
                                 radius: Style.radiusS
                                 color:  Color.mSurfaceVariant
                                 border.color: Qt.alpha(Color.mOnSurface, 0.15)
-                                border.width: 1
+                                border.width: Style.marginM
 
                                 NText { id: bubbleText; anchors.centerIn: parent; text: parent._label; pointSize: Style.fontSizeXS; color: Color.mOnSurface }
                             }
@@ -369,12 +369,12 @@ Item {
                     radius:       Style.radiusS
                     color:        Qt.alpha(Color.mError, 0.12)
                     border.color: Color.mError
-                    border.width: 1
+                    border.width: Style.marginXXS
 
                     NText {
                         id:        timeoutLabel
                         anchors.centerIn: parent
-                        text:      pluginApi?.tr("widget.timedOut") ?? "Timed out"
+                        text:      pluginApi?.tr("widget.timedOut")
                         pointSize: Style.fontSizeXS
                         color:     Color.mError
                     }

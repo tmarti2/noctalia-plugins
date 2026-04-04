@@ -101,14 +101,14 @@ ColumnLayout {
         NTextInput {
             id:              addNameField
             Layout.preferredWidth: 120 * Style.uiScaleRatio
-            placeholderText: pluginApi?.tr("settings.hosts.namePlaceholder") ?? "Name"
+            placeholderText: pluginApi?.tr("settings.hosts.namePlaceholder")
             onTextChanged:   parent._name = text
         }
 
         NTextInput {
             id:              addAddrField
             Layout.fillWidth: true
-            placeholderText: pluginApi?.tr("settings.hosts.addressPlaceholder") ?? "1.1.1.1"
+            placeholderText: pluginApi?.tr("settings.hosts.addressPlaceholder")
             onTextChanged:   parent._address = text
         }
 

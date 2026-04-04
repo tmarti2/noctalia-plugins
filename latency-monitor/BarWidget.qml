@@ -22,17 +22,13 @@ Item {
     readonly property real   capsuleHeight: Style.getCapsuleHeightForScreen(screenName)
     readonly property real   barFontSize:   Style.getBarFontSizeForScreen(screenName)
 
-    property var cfg:      pluginApi?.pluginSettings || ({})
-    property var defaults: pluginApi?.manifest?.metadata?.defaultSettings || ({})
-
-    readonly property bool   showHostName: cfg.showHostName ?? defaults.showHostName ?? true
-
     readonly property var    mainInstance:   pluginApi?.mainInstance
     readonly property var    hosts:          mainInstance?.hosts            ?? []
     readonly property var    displayHost:    mainInstance?.displayHost      ?? null
     readonly property string status:         mainInstance?.status           ?? "unknown"
     readonly property int    thresholdGood:  mainInstance?.thresholdGood    ?? 20
     readonly property int    thresholdWarn:  mainInstance?.thresholdWarning ?? 70
+    readonly property int    showHostName:   mainInstance?.showHostName     ?? true
 
     readonly property string displayText: {
         if (!displayHost)                return "—"
@@ -104,7 +100,7 @@ Item {
             visible: !isVertical
 
             Rectangle {
-                width:  Style.toOdd(root.iconSize * 0.45)
+                width:  Style.toOdd(root.iconSize * 0.55)
                 height: width; radius: width / 2
                 color: root.statusColor
                 Layout.alignment: Qt.AlignVCenter
