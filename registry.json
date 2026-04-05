@@ -1172,7 +1172,7 @@
     {
       "id": "sys-info-widget",
       "name": "System Info",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "official": false,
       "author": "Simon",
       "description": "Shows Distribution, Kernel, Uptime and IP addresses.",
@@ -1183,7 +1183,7 @@
         "Desktop",
         "System"
       ],
-      "lastUpdated": "2026-03-30T07:03:01+02:00"
+      "lastUpdated": "2026-04-03T20:49:02+02:00"
     },
     {
       "id": "tailscale",
