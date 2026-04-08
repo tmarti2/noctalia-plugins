@@ -7,7 +7,7 @@ Row {
     spacing: Style.marginXS
 
     property var pluginApi: null
-    opacity: (pluginApi?.pluginSettings?.showDebug ?? false) ? 1.0 : 0.0
+    visible: (pluginApi?.pluginSettings?.showDebug ?? false) ? 1.0 : 0.0
 
     component ActionBtn: Rectangle {
         id: btn
