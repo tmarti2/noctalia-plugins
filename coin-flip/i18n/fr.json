@@ -1,0 +1,12 @@
+{
+  "common": {
+    "heads": "Face",
+    "tails": "Pile"
+  },
+  "settings": {
+
+  },
+  "widget": {
+    "tooltip": "Pile ou face"
+  }
+}
